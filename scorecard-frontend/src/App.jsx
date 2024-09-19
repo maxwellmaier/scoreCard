@@ -9,6 +9,7 @@ function App() {
   const numHoles = 18; // Example: 18 holes
   const [playerName, setPlayerName] = useState("");
   const [courseName, setCourseName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Function to handle form submission
  const handleSubmit = () => {
@@ -29,9 +30,11 @@ function App() {
      .post(`${process.env.REACT_APP_BACKEND_URL}/api/rounds`, data)
      .then((response) => {
        console.log("Round submitted successfully", response.data);
+       setErrorMessage(""); // Clear error if successful
      })
      .catch((error) => {
        console.error("Error submitting round", error);
+       setErrorMessage("Failed to submit round. Please try again."); // Set error message
      });
  };
 
@@ -63,6 +66,8 @@ function App() {
       <TotalScore scores={scores} pars={pars} />
 
       <button onClick={handleSubmit}>Submit Round</button>
+
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
   );
 }
