@@ -11,27 +11,30 @@ function App() {
   const [courseName, setCourseName] = useState("");
 
   // Function to handle form submission
-  const handleSubmit = () => {
-    // Calculate the total score by subtracting total par from total strokes
-    const totalScore = scores.reduce((sum, score) => sum + score, 0) - pars.reduce((sum, par) => sum + par, 0);
+ const handleSubmit = () => {
+   const totalScore =
+     scores.reduce((sum, score) => sum + score, 0) -
+     pars.reduce((sum, par) => sum + par, 0);
 
-    const data = {
-      playerName,
-      courseName,
-      pars,
-      scores,
-      totalScore,
-    };
+   const data = {
+     playerName,
+     courseName,
+     pars,
+     scores,
+     totalScore,
+   };
 
-    axios
-      .post("/api/rounds", data)
-      .then((response) => {
-        console.log("Round submitted successfully", response.data);
-      })
-      .catch((error) => {
-        console.error("Error submitting round", error);
-      });
-  };
+   // Use the environment variable for the backend URL
+   axios
+     .post(`${process.env.REACT_APP_BACKEND_URL}/api/rounds`, data)
+     .then((response) => {
+       console.log("Round submitted successfully", response.data);
+     })
+     .catch((error) => {
+       console.error("Error submitting round", error);
+     });
+ };
+
 
   return (
     <div className="App">

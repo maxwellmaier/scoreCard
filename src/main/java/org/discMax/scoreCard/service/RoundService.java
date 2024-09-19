@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 public class RoundService {
 
     @Autowired
-    private RoundRepository roundRepository;
+    private static RoundRepository roundRepository;
 
-    public Round saveRound(Round round) {
+    public static Round saveRound(Round round) {
         return roundRepository.save(round);
     }
 
